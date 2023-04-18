@@ -26,7 +26,9 @@ class BybitEarlyReactionJob:
             if last_close_pnl is None:
                 continue
 
-            if last_close_pnl["amount"] > self.pnl_limit and last_close_pnl["date"] < "now - minutes_limit":
+            if last_close_pnl["amount"] < 0 or \
+                    last_close_pnl["amount"] > self.pnl_limit or \
+                    last_close_pnl["date"] < "now - minutes_limit":
                 continue
 
             logging.info("Early reaction on ticker: {}".format(ticker))
